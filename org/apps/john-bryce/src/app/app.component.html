@@ -1,1 +1,20 @@
 <h1>Hello World</h1>
+
+<form [formGroup]="formGroup" (submit)="onSubmit()">
+  <input formControlName="myName" />
+  <input formControlName="myCourse" />
+  <span>{{formGroup.get('myCourse')?.errors | json}}</span>
+  <ng-container
+    *ngFor="let childForm of getChildrenControls()"
+    [formGroup]="childForm"
+  >
+    <input formControlName="name" />
+  </ng-container>
+
+  <button [disabled]="formGroup.invalid" type="submit">Submit</button>
+</form>
+
+<button (click)="onReset()">Reset</button>
+<button (click)="onAdd()">Add</button>
+<pre class="data">{{ data | json }}</pre>
+<pre class="data">{{ formGroup.value | json }}</pre>
